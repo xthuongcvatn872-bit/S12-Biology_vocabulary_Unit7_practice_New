@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biology Interactive Learning - Unit 7: Structure and function of chromosomes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #059669;
+      --primary-dark: #065f46;
+      --primary-light: #ecfdf5;
+      --ocean: #0284c7;
+      --ocean-dark: #0369a1;
+      --ocean-light: #e0f2fe;
+      --amber: #d97706;
+      --amber-dark: #b45309;
+      --amber-light: #fef3c7;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1f2937;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius-lg: 18px;
+      --radius-md: 10px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 14px rgba(5,150,105,0.08);
+      --shadow-lg: 0 10px 24px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER & NAV */
+    header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: white;
+      padding: 0.65rem 1.25rem;
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header-inner {
+      max-width: 1050px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      letter-spacing: -0.02em;
+    }
+    .user-badge {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(6px);
+      padding: 0.3rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 0.4rem;
+      background: white;
+      padding: 0.4rem 1rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1050px;
+      margin: 0 auto;
+      width: 100%;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      border: none;
+      background: none;
+      padding: 0.5rem 1rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { background: var(--primary-light); color: var(--primary-dark); }
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 2px 6px rgba(5,150,105,0.25);
+    }
+
+    main {
+      flex: 1;
+      max-width: 1050px;
+      width: 100%;
+      margin: 0.85rem auto;
+      padding: 0 0.85rem;
+    }
+    .screen { display: none; animation: fadeIn 0.25s ease-out; }
+    .screen.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.55rem 1.2rem;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-amber { background: var(--amber); color: white; }
+    .btn-amber:hover { background: var(--amber-dark); }
+    .btn-outline { background: #e2e8f0; color: #334155; }
+    .btn-outline:hover { background: #cbd5e1; }
+
+    /* WELCOME SCREEN */
+    .welcome-container {
+      max-width: 520px;
+      margin: 1.5rem auto;
+      text-align: center;
+    }
+    .form-group { text-align: left; margin-bottom: 1.1rem; }
+    .form-group label { display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .form-control {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.92rem;
+      font-family: inherit;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+    }
+
+    /* FLASHCARD COMPACT & ĐỐI XỨNG */
+    .unit-hero-badge {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 800;
+      padding: 0.25rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      margin-bottom: 0.25rem;
+    }
+    .unit-hero-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 0.15rem;
+      letter-spacing: -0.01em;
+    }
+    .unit-hero-sub {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 0.5rem;
+    }
+    .fc-counter-pill {
+      display: inline-block;
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 0.25rem 1rem;
+      border-radius: 9999px;
+      margin-bottom: 0.85rem;
+    }
+
+    .flashcard-dual-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.25rem;
+      margin-bottom: 1rem;
+      align-items: start;
+    }
+    @media (max-width: 820px) {
+      .flashcard-dual-grid { grid-template-columns: 1fr; }
+    }
+
+    .fc-column-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .fc-slide-container {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #f8fafc;
+      border: 1px solid #edf2f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+    }
+    .fc-slide-container img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .fc-listen-title, .fc-video-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      font-size: 0.92rem;
+      margin-bottom: 0.45rem;
+    }
+    .audio-full-player {
+      width: 100%;
+      height: 36px;
+      margin-bottom: 0.85rem;
+    }
+
+    .scramble-compact-box {
+      background: #f0fdf4;
+      border: 1.5px dashed #86efac;
+      border-radius: var(--radius-md);
+      padding: 0.9rem;
+      text-align: center;
+    }
+    .scramble-heading {
+      font-weight: 700;
+      color: var(--primary-dark);
+      font-size: 0.88rem;
+      margin-bottom: 0.5rem;
+    }
+    .scramble-chips-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.65rem;
+    }
+    .scramble-chip {
+      background: #dcfce7;
+      color: var(--primary-dark);
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      min-width: 38px;
+    }
+    .scramble-input-group {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .scramble-input-group input {
+      font-size: 0.88rem;
+      padding: 0.45rem 0.75rem;
+    }
+
+    .fc-video-container {
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #000000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    .fc-video-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .fc-nav-controls {
+      display: flex;
+      justify-content: center;
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .btn-prev {
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 0.55rem 1.4rem;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+    }
+    .btn-prev:hover { background: #bfdbfe; }
+    .btn-next {
+      background: var(--primary);
+      color: white;
+      padding: 0.55rem 1.5rem;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+    }
+    .btn-next:hover { background: var(--primary-dark); }
+
+    /* REVIEW QUIZ & ARENA */
+    .quiz-nav-slider {
+      display: flex;
+      gap: 0.4rem;
+      overflow-x: auto;
+      padding-bottom: 0.65rem;
+      margin-bottom: 1.1rem;
+    }
+    .q-step-btn {
+      min-width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: white;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .q-step-btn.active { border-color: var(--primary); background: var(--primary-light); color: var(--primary-dark); }
+    .q-step-btn.answered { background: var(--primary); color: white; border-color: var(--primary); }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.85rem;
+      margin-bottom: 0.55rem;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border);
+      background: white;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .option-btn:hover { border-color: var(--primary); background: var(--primary-light); }
+    .option-btn.selected { border-color: var(--primary); background: #d1fae5; color: var(--primary-dark); }
+    .option-btn.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #15803d !important; }
+    .option-btn.incorrect { background: #fee2e2 !important; border-color: #ef4444 !important; color: #b91c1c !important; }
+
+    .arena-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(90deg, #0f172a, #1e293b);
+      color: white;
+      padding: 0.85rem 1.25rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 1.25rem;
+    }
+    .timer-badge {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #38bdf8;
+      font-family: monospace;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.25rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      background: white;
+      margin-top: auto;
+    }
+    .view-counter {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #f1f5f9;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      color: var(--ocean-dark);
+      margin-top: 0.35rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="brand-title">
+        <span>🧬</span>
+        <span>S12 - Biology Vocab: Unit 7</span>
+      </div>
+      <div class="user-badge" id="headerUserBadge">
+        <span>👤 Chưa định danh</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="nav-tabs">
+    <button type="button" class="tab-btn active" onclick="switchScreen('welcome')">🏠 Trang chủ</button>
+    <button type="button" class="tab-btn" onclick="switchScreen('flashcard')">🗂️ Flashcard Đa phương tiện</button>
+    <button type="button" class="tab-btn" onclick="switchScreen('practice')">✏️ Luyện tập (Review Quiz)</button>
+    <button type="button" class="tab-btn" onclick="switchScreen('arena')">🏆 Đấu trường (Arena)</button>
+  </nav>
+
+  <main>
+    <!-- MÀN HÌNH 1: WELCOME -->
+    <section id="screen-welcome" class="screen active">
+      <div class="card welcome-container">
+        <span class="unit-hero-badge">HỆ THỐNG ÔN TẬP THUẬT NGỮ SINH HỌC 12</span>
+        <h1 style="font-size: 1.65rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 0.4rem;">
+          Unit 7: Structure and function of chromosomes
+        </h1>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">
+          Cấu trúc siêu hiển vi của nhiễm sắc thể • Nucleosome, Histone, Condensin, Chromatid, Locus, Allele.
+        </p>
+
+        <div class="form-group">
+          <label for="inputStudentName">Họ và tên thí sinh:</label>
+          <input type="text" id="inputStudentName" class="form-control" autocomplete="off" />
+        </div>
+        <div class="form-group">
+          <label for="inputStudentClass">Lớp học / Đơn vị:</label>
+          <input type="text" id="inputStudentClass" class="form-control" autocomplete="off" />
+        </div>
+
+        <button type="button" id="btnStartApp" class="btn btn-primary" style="width: 100%; padding: 0.75rem;" onclick="saveUserInfoAndStart()">
+          🚀 Bắt đầu học tập ngay
+        </button>
+
+        <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+          <div style="background: var(--primary-light); padding: 0.65rem 1.15rem; border-radius: var(--radius-md); text-align: center;">
+            <div style="font-size: 1.3rem; font-weight: 800; color: var(--primary-dark);" id="statVocabCount">6</div>
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--primary-dark);">Thuật ngữ Unit 7</div>
+          </div>
+          <div style="background: var(--amber-light); padding: 0.65rem 1.15rem; border-radius: var(--radius-md); text-align: center;">
+            <div style="font-size: 1.3rem; font-weight: 800; color: var(--amber);">3 Dạng</div>
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--amber);">Đề thi Chuẩn hóa</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÀN HÌNH 2: FLASHCARD ĐA PHƯƠNG TIỆN -->
+    <section id="screen-flashcard" class="screen">
+      <div style="text-align: center; margin-bottom: 0.85rem;">
+        <span class="unit-hero-badge">Unit 7 - Structure and function of chromosomes</span>
+        <h2 class="unit-hero-title">Biology Interactive Learning</h2>
+        <p class="unit-hero-sub">Học liệu số & Kiểm tra đánh giá thuật ngữ Sinh học</p>
+        <div class="fc-counter-pill" id="fcCounter">1 / 6</div>
+      </div>
+
+      <div class="flashcard-dual-grid">
+        <div class="fc-column-card">
+          <div class="fc-slide-container" id="fcSlideWrapper">
+            <img id="fcImg" src="" alt="Slide thuật ngữ" />
+          </div>
+
+          <div>
+            <div class="fc-listen-title">
+              <span>📢</span>
+              <span>Listen & Repeat</span>
+            </div>
+            <audio id="fcAudio" class="audio-full-player" controls src="" preload="auto"></audio>
+          </div>
+
+          <div class="scramble-compact-box">
+            <div class="scramble-heading">✏️ Luyện nhớ từ này: Sắp xếp lại các chữ cái</div>
+            <div class="scramble-chips-row" id="scrambleLettersContainer"></div>
+            <div class="scramble-input-group">
+              <input type="text" id="scrambleInput" class="form-control" autocomplete="off" style="text-transform: uppercase; font-weight: 700; text-align: center;" />
+              <button type="button" class="btn btn-primary" style="padding: 0 1.25rem;" onclick="checkScramble()">Kiểm tra</button>
+            </div>
+            <div id="scrambleFeedback" style="margin-top: 0.45rem; font-weight: 700; font-size: 0.85rem;"></div>
+          </div>
+        </div>
+
+        <div class="fc-column-card">
+          <div class="fc-video-title">
+            <span>🎥</span>
+            <span>Teacher's Guide</span>
+          </div>
+          <div class="fc-video-container">
+            <video id="fcVideo" controls preload="metadata" playsinline>
+              Trình duyệt không hỗ trợ thẻ video.
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="fc-nav-controls">
+        <button type="button" class="btn btn-prev" onclick="navigateCard(-1)">◀ Previous</button>
+        <button type="button" class="btn btn-next" onclick="navigateCard(1)">Next ▶</button>
+      </div>
+    </section>
+
+    <!-- MÀN HÌNH 3: REVIEW QUIZ -->
+    <section id="screen-practice" class="screen">
+      <div class="card" style="margin-bottom: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.85rem;">
+          <div>
+            <h2 style="font-weight: 800; color: var(--primary-dark); font-size: 1.35rem;">Luyện tập: Review Quiz</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Tự sinh đề từ 6 thuật ngữ Unit 7: Scramble (30%), Điền khuyết Dropdown 4 lựa chọn (30%) và Trắc nghiệm (40%)</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <label style="font-size: 0.85rem; font-weight: 700;">Số lượng:</label>
+            <button type="button" class="btn btn-outline" id="btnQuiz10" onclick="initPracticeQuiz(10)">10 câu</button>
+            <button type="button" class="btn btn-outline" id="btnQuiz20" onclick="initPracticeQuiz(20)">20 câu</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="practiceQuizCard">
+        <div class="quiz-nav-slider" id="practiceNavSlider"></div>
+
+        <div style="margin-bottom: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+            <span class="unit-hero-badge" id="practiceQuestionTypeBadge" style="margin-bottom:0;">MCQ</span>
+            <button type="button" class="btn btn-outline" style="padding: 0.2rem 0.55rem; font-size: 0.78rem;" onclick="togglePracticeHint()">💡 Gợi ý</button>
+          </div>
+          <h3 id="practiceQuestionTitle" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.65rem;"></h3>
+          <div id="practiceHintBox" style="display: none; background: #fef9c3; border-left: 3px solid #eab308; padding: 0.5rem; border-radius: 6px; font-size: 0.82rem; margin-bottom: 0.85rem;"></div>
+        </div>
+
+        <div id="practiceQuestionBody"></div>
+
+        <!-- Nút Nộp bài thường trực ở mọi câu hỏi -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 0.85rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="button" class="btn btn-outline" onclick="prevPracticeQuestion()">⬅️ Câu trước</button>
+            <button type="button" class="btn btn-primary" onclick="nextPracticeQuestion()">Câu tiếp ➡️</button>
+          </div>
+          <button type="button" class="btn btn-amber" onclick="submitPracticeQuiz(false)">📤 Nộp bài luyện tập</button>
+        </div>
+      </div>
+
+      <div class="card" id="practiceResultBox" style="max-width: 600px; margin: 1.5rem auto; text-align: center; display: none;">
+        <span style="font-size: 2.8rem;">🎯</span>
+        <h2 style="font-weight: 800; color: var(--primary-dark); margin: 0.4rem 0;">KẾT QUẢ ÔN TẬP</h2>
+        <p style="color: var(--text-muted); font-size: 0.88rem;" id="practiceSyncStatus">Đang gửi dữ liệu về Google Sheets...</p>
+
+        <div style="background: var(--primary-light); padding: 1.25rem; border-radius: var(--radius-md); margin: 1.25rem 0;">
+          <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-dark);" id="practiceResultScore">0 / 10</div>
+          <div style="font-size: 0.9rem; font-weight: 600; color: var(--primary);">Tỷ lệ chính xác: <span id="practiceResultPercent">0%</span> (Thang 10: <span id="practiceResultScale10">0.0</span>)</div>
+        </div>
+        <div id="practiceResultDetails" style="text-align: left; margin: 1.25rem 0; font-size: 0.88rem; max-height: 250px; overflow-y: auto; padding: 0.5rem; background: #f8fafc; border-radius: var(--radius-md); border: 1px solid var(--border);"></div>
+        <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+          <button type="button" class="btn btn-primary" onclick="initPracticeQuiz(practiceQuestions.length || 10)">🔄 Luyện tập lại</button>
+          <button type="button" class="btn btn-outline" onclick="switchScreen('flashcard')">📖 Ôn lại Flashcard</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÀN HÌNH 4: ĐẤU TRƯỜNG (ARENA) - 3 PHÚT / 10 CÂU -->
+    <section id="screen-arena" class="screen">
+      <div id="arenaLockBox" class="card" style="max-width: 480px; margin: 1.5rem auto; text-align: center;">
+        <span style="font-size: 2.3rem;">🛡️</span>
+        <h2 style="font-weight: 800; color: var(--primary-dark); margin: 0.4rem 0; font-size: 1.45rem;">Đấu Trường Trực Tuyến</h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          Nhập mã phòng thi do giáo viên cung cấp để mở đề (Thời gian: 03 phút). Kết quả được lưu trực tiếp vào Google Sheets.
+        </p>
+
+        <div class="form-group">
+          <input type="text" id="arenaRoomCodeInput" class="form-control" autocomplete="off" style="text-align: center; text-transform: uppercase; font-weight: 700; font-size: 1.1rem;" />
+        </div>
+        <button type="button" class="btn btn-primary" style="width: 100%;" onclick="startArenaExam()">🔓 Mở Khóa Đề Thi & Bắt Đầu</button>
+      </div>
+
+      <div id="arenaExamBox" style="display: none;">
+        <div class="arena-banner">
+          <div>
+            <div style="font-size: 0.82rem; opacity: 0.85;">PHÒNG THI: <span id="arenaCurrentRoomLabel" style="font-weight: 700; color: #38bdf8;"></span></div>
+            <div style="font-size: 0.95rem; font-weight: 700;" id="arenaCandidateLabel">Thí sinh: </div>
+          </div>
+          <div class="timer-badge">
+            <span>⏱️</span>
+            <span id="arenaTimer">03:00</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="quiz-nav-slider" id="arenaNavSlider"></div>
+
+          <div style="margin-bottom: 1.1rem;">
+            <div style="display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.4rem;">
+              <span class="unit-hero-badge" id="arenaQuestionTypeBadge" style="margin-bottom:0;">MCQ</span>
+              <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted);" id="arenaQNumberLabel">Câu 1/10</span>
+            </div>
+            <h3 id="arenaQuestionTitle" style="font-size: 1.05rem; font-weight: 700;"></h3>
+          </div>
+
+          <div id="arenaQuestionContent"></div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 0.85rem;">
+            <div style="display: flex; gap: 0.4rem;">
+              <button type="button" class="btn btn-outline" onclick="prevArenaQuestion()">⬅️ Trước</button>
+              <button type="button" class="btn btn-outline" onclick="nextArenaQuestion()">Sau ➡️</button>
+            </div>
+            <button type="button" class="btn btn-amber" onclick="submitArenaExam(false)">📤 Nộp bài thi</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="arenaResultBox" class="card" style="max-width: 550px; margin: 1.5rem auto; text-align: center; display: none;">
+        <span style="font-size: 2.8rem;">🎉</span>
+        <h2 style="font-weight: 800; color: var(--primary-dark); margin: 0.4rem 0;">KẾT QUẢ ĐẤU TRƯỜNG</h2>
+        <p style="color: var(--text-muted); font-size: 0.88rem;" id="arenaResultSyncStatus">Đang gửi dữ liệu về Google Sheets...</p>
+
+        <div style="background: var(--primary-light); padding: 1.25rem; border-radius: var(--radius-md); margin: 1.25rem 0;">
+          <div style="font-size: 2.6rem; font-weight: 800; color: var(--primary-dark);" id="arenaResultScore">0 / 10</div>
+          <div style="font-size: 0.88rem; font-weight: 600; color: var(--primary);">Điểm chuẩn hóa: <span id="arenaResultScale10">0.0</span> / 10.0</div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; justify-content: center;">
+          <button type="button" class="btn btn-primary" onclick="restartArena()">🔄 Thi lại lần nữa</button>
+          <button type="button" class="btn btn-outline" onclick="switchScreen('flashcard')">📖 Ôn lại từ vựng</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>Biology Digital Learning Material • THPT Chu Văn An - Thái Nguyên</div>
+    <div class="view-counter">
+      <span>👁️ Lượt truy cập bài học:</span>
+      <span id="viewCountText">...</span>
+    </div>
+  </footer>
+
+  <script>
+    /* ==========================================================================
+       0. WEB AUDIO API SYNTHESIZER
+       ========================================================================== */
+    const SoundFX = {
+      ctx: null,
+      init() {
+        try {
+          if (!this.ctx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) this.ctx = new AudioContext();
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+        } catch(e){}
+      },
+      playCorrect() {
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(659.25, now);
+          osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.12);
+
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } catch(e){}
+      },
+      playIncorrect() {
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.exponentialRampToValueAtTime(180, now + 0.18);
+
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start(now);
+          osc.stop(now + 0.28);
+        } catch(e){}
+      }
+    };
+
+    /* ==========================================================================
+       1. VOCABULARY DATA: 6 THUẬT NGỮ CHUẨN UNIT 7
+       ========================================================================== */
+    const VOCABULARY_DATA = [
+      {
+        id: 74,
+        code: "074_Nucleosome",
+        aliases: ["074_nucleosome", "074_Nucleosome"],
+        word: "Nucleosome",
+        fullName: "",
+        ipa: "/ˈnjuːkliəsoʊm/",
+        defEn: "The basic structural unit of eukaryotic chromatin, consisting of DNA coiled around a core of histone proteins.",
+        defVi: "Đơn vị cấu trúc cơ bản của sợi nhiễm sắc chất ở tế bào nhân thực, gồm một đoạn DNA quấn quanh lõi protein histone."
+      },
+      {
+        id: 75,
+        code: "075_Histone",
+        aliases: ["075_histone", "075_Histone"],
+        word: "Histone",
+        fullName: "",
+        ipa: "/ˈhɪstoʊn/",
+        defEn: "Highly alkaline proteins found in eukaryotic cell nuclei that package and order DNA into nucleosomes.",
+        defVi: "Nhóm protein kiềm trong nhân giúp tạo khung nâng đỡ cho nhiễm sắc thể bằng cách cho DNA quấn quanh."
+      },
+      {
+        id: 76,
+        code: "076_Condensin",
+        aliases: ["076_condensin", "076_Condensin"],
+        word: "Condensin",
+        fullName: "",
+        ipa: "/kənˈdensɪn/",
+        defEn: "A large multi-subunit protein complex that plays a central role in chromosome assembly and segregation during mitosis and meiosis.",
+        defVi: "Phức hệ protein đa tiểu phần đóng vai trò trung tâm trong quá trình nén và phân ly nhiễm sắc thể ở nguyên phân và giảm phân."
+      },
+      {
+        id: 77,
+        code: "077_Chromatid",
+        aliases: ["077_chromatid", "077_Chromatid"],
+        word: "Chromatid",
+        fullName: "",
+        ipa: "/ˈkroʊmətɪd/",
+        defEn: "One of two identical halves of a replicated chromosome joined by a centromere.",
+        defVi: "Một trong hai nửa giống hệt nhau của một nhiễm sắc thể kép đã nhân đôi, liên kết với nhau tại tâm động."
+      },
+      {
+        id: 78,
+        code: "078_Locus",
+        aliases: ["078_locus", "078_Locus"],
+        word: "Locus",
+        fullName: "",
+        ipa: "/ˈloʊkəs/",
+        defEn: "The specific physical location of a gene or DNA sequence on a chromosome.",
+        defVi: "Vị trí xác định của một gene hoặc trình tự DNA trên nhiễm sắc thể."
+      },
+      {
+        id: 79,
+        code: "079_Allele",
+        aliases: ["079_allele", "079_Allele"],
+        word: "Allele",
+        fullName: "",
+        ipa: "/əˈliːl/",
+        defEn: "Different nucleotide sequences of the same gene that are on the same locus of a homologous chromosome pair.",
+        defVi: "Một trong hai hay nhiều trạng thái biểu hiện khác nhau của cùng một gene, phát sinh do đột biến và nằm cùng vị trí trên nhiễm sắc thể."
+      }
+    ];
+
+    /* ==========================================================================
+       2. CẤU HÌNH ĐẤU TRƯỜNG & GOOGLE SHEETS
+       ========================================================================== */
+    const ARENA_CONFIG = {
+      validCodes: ["CVA", "TUDO"],
+      durationMinutes: 3,
+      googleSheetUrl: "https://script.google.com/macros/s/AKfycbycbqEZwaLYM9BM-CButPO5wgVPh64QlOTawiDltBzuOhlJTmFGto1c_2T4mZBk6MqefQ/exec"
+    };
+
+    /* ==========================================================================
+       3. BỘ ĐỀ ĐẤU TRƯỜNG UNIT 7 (10 CÂU BÁM SÁT 100% CẤU TRÚC NST)
+       ========================================================================== */
+    const ARENA_EXAMS = {
+      defaultExam: [
+        {
+          id: 1,
+          type: "mcq",
+          question: "Đơn vị cấu trúc cơ bản nhất của sợi nhiễm sắc chất ở sinh vật nhân thực là gì?",
+          options: ["Nucleosome", "Histone", "Condensin", "Chromatid"],
+          answer: 0,
+          hint: "Gồm một đoạn DNA quấn quanh lõi 8 phân tử histone."
+        },
+        {
+          id: 2,
+          type: "mcq",
+          question: "Loại protein kiềm nào đóng vai trò chính tạo khung nâng đỡ cho DNA quấn quanh tạo nên nucleosome?",
+          options: ["Ligase", "Histone", "Condensin", "Permease"],
+          answer: 1,
+          hint: "Protein kiềm trong nhân tế bào."
+        },
+        {
+          id: 3,
+          type: "mcq",
+          question: "Vị trí xác định của một gene hoặc trình tự DNA cụ thể trên nhiễm sắc thể được gọi là gì?",
+          options: ["Operator", "Promoter", "Locus", "Centromere"],
+          answer: 2,
+          hint: "Locus là vị trí phân bố của gene trên NST."
+        },
+        {
+          id: 4,
+          type: "mcq",
+          question: "Các trạng thái biểu hiện khác nhau của cùng một gene, phát sinh do đột biến và cùng chiếm một locus trên cặp NST tương đồng gọi là gì?",
+          options: ["Allele", "Operon", "Chromatid", "Condensin"],
+          answer: 0,
+          hint: "Alen (Allele) là các trạng thái khác nhau của cùng một gene."
+        },
+        {
+          id: 5,
+          type: "tf",
+          question: "Khẳng định: Mỗi nhiễm sắc thể kép sau khi nhân đôi gồm có hai nhiễm sắc tử chị em (sister chromatids) dính nhau tại tâm động.",
+          options: ["Đúng", "Sai"],
+          answer: 0,
+          hint: "Hai chromatid giống hệt nhau liên kết tại tâm động."
+        },
+        {
+          id: 6,
+          type: "tf",
+          question: "Khẳng định: Phức hệ protein Condensin đóng vai trò trung tâm trong quá trình nén và phân ly nhiễm sắc thể ở phân bào.",
+          options: ["Đúng", "Sai"],
+          answer: 0,
+          hint: "Condensin có vai trò co xoắn và nén sợi nhiễm sắc."
+        },
+        {
+          id: 7,
+          type: "tf",
+          question: "Khẳng định: Các allele của cùng một gene có thể nằm ở các locus hoàn toàn khác nhau trên cùng một nhiễm sắc thể.",
+          options: ["Đúng", "Sai"],
+          answer: 1,
+          hint: "Các allele của cùng một gene luôn nằm ở cùng một locus trên cặp NST tương đồng."
+        },
+        {
+          id: 8,
+          type: "num",
+          question: "Trong cấu trúc của một nucleosome tiêu chuẩn, lõi protein được cấu tạo từ bao nhiêu phân tử histone (bát tử histone)?",
+          answer: 8,
+          hint: "Lõi nucleosome gồm 8 phân tử histone thuộc 4 loại H2A, H2B, H3, H4."
+        },
+        {
+          id: 9,
+          type: "num",
+          question: "Một nhiễm sắc thể kép hoàn chỉnh sau khi tự nhân đôi ở pha S của chu kỳ tế bào được cấu tạo từ bao nhiêu chromatid?",
+          answer: 2,
+          hint: "Gồm 2 chromatid (nhiễm sắc tử chị em)."
+        },
+        {
+          id: 10,
+          type: "num",
+          question: "Có bao nhiêu thuật ngữ đại diện cho phức hệ hoặc thành phần protein chuyên biệt trong danh mục Unit 7 (gồm: Histone, Condensin)?",
+          answer: 2,
+          hint: "Đếm: Histone và Condensin."
+        }
+      ]
+    };
+
+    /* ==========================================================================
+       4. USER & NAVIGATION LOGIC (FAIL-SAFE BẢO VỆ 100%)
+       ========================================================================== */
+    let currentUser = { name: "", class: "", id: "HS_" + Math.floor(1000 + Math.random() * 9000) };
+    let currentCardIndex = 0;
+    let practiceQuestions = [];
+    let currentPracticeIdx = 0;
+    let practiceAnswers = {};
+    let arenaQuestions = [];
+    let currentArenaIdx = 0;
+    let arenaAnswers = {};
+    let arenaTimerInterval = null;
+    let arenaRemainingSeconds = 180;
+
+    function switchScreen(screenName) {
+      try {
+        document.querySelectorAll(".screen").forEach(el => el.classList.remove("active"));
+        document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+
+        const target = document.getElementById("screen-" + screenName);
+        if (target) target.classList.add("active");
+
+        const tabs = ["welcome", "flashcard", "practice", "arena"];
+        const activeIdx = tabs.indexOf(screenName);
+        if (activeIdx >= 0) {
+          const tabBtns = document.querySelectorAll(".nav-tabs .tab-btn");
+          if (tabBtns[activeIdx]) tabBtns[activeIdx].classList.add("active");
+        }
+
+        if (screenName === 'flashcard') {
+          renderFlashcard(currentCardIndex);
+        }
+
+        if (screenName === 'practice' && practiceQuestions.length === 0) {
+          initPracticeQuiz(10);
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch(err) {
+        console.error("Lỗi chuyển màn hình:", err);
+      }
+    }
+
+    function initUser() {
+      try {
+        const saved = localStorage.getItem("s12_bio_unit7_user");
+        if (saved) {
+          currentUser = JSON.parse(saved);
+          updateUserUI();
+        }
+      } catch(e) {
+        console.warn("Không thể đọc localStorage:", e);
+      }
+    }
+
+    function saveUserInfoAndStart() {
+      try {
+        const nameInput = document.getElementById("inputStudentName");
+        const classInput = document.getElementById("inputStudentClass");
+
+        const valName = nameInput ? nameInput.value.trim() : "";
+        const valClass = classInput ? classInput.value.trim() : "";
+
+        currentUser.name = valName || ("Thí sinh tự do (" + currentUser.id + ")");
+        currentUser.class = valClass || "Tự do";
+
+        try {
+          localStorage.setItem("s12_bio_unit7_user", JSON.stringify(currentUser));
+        } catch(e){}
+
+        updateUserUI();
+      } catch(e) {
+        console.error("Lỗi lưu thông tin:", e);
+      }
+
+      switchScreen("flashcard");
+    }
+
+    function updateUserUI() {
+      try {
+        const badge = document.getElementById("headerUserBadge");
+        if (badge && currentUser.name) {
+          badge.innerHTML = `👤 ${currentUser.name} <span style="opacity:0.75">(${currentUser.class})</span>`;
+        }
+      } catch(e){}
+    }
+
+    /* ==========================================================================
+       5. FLASHCARD ENGINE CÓ SMART AUTO-FALLBACK & SOUND EFFECT
+       ========================================================================== */
+    function renderFlashcard(index) {
+      if (index < 0) index = 0;
+      if (index >= VOCABULARY_DATA.length) index = VOCABULARY_DATA.length - 1;
+      currentCardIndex = index;
+
+      const item = VOCABULARY_DATA[index];
+      const counterEl = document.getElementById("fcCounter");
+      if (counterEl) counterEl.innerText = `${index + 1} / ${VOCABULARY_DATA.length}`;
+
+      const candidates = Array.from(new Set([
+        item.code,
+        item.code.toLowerCase(),
+        item.code.toUpperCase(),
+        ...(item.aliases || [])
+      ]));
+
+      // 1. Ảnh Slide
+      const imgEl = document.getElementById("fcImg");
+      if (imgEl) {
+        let imgCandidateIdx = 0;
+        function tryNextImage() {
+          if (imgCandidateIdx < candidates.length) {
+            const currentCode = candidates[imgCandidateIdx++];
+            imgEl.onerror = () => tryNextImage();
+            imgEl.src = `media/${currentCode}.png`;
+          } else {
+            imgEl.onerror = null;
+            const svgContent = `
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+                <defs>
+                  <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ecfdf5"/>
+                    <stop offset="100%" stop-color="#d1fae5"/>
+                  </linearGradient>
+                </defs>
+                <rect width="800" height="450" rx="16" fill="url(#bgGrad)"/>
+                <rect x="24" y="24" width="752" height="402" rx="12" fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="6,6"/>
+                <text x="400" y="110" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="800" fill="#047857" text-anchor="middle">UNIT 7: CHROMOSOME STRUCTURE</text>
+                <text x="400" y="200" font-family="'Plus Jakarta Sans', sans-serif" font-size="52" font-weight="800" fill="#065f46" text-anchor="middle">${item.word}</text>
+                <text x="400" y="250" font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="600" fill="#0284c7" text-anchor="middle">${item.ipa}</text>
+                <text x="400" y="320" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="500" fill="#334155" text-anchor="middle">${item.defVi && item.defVi.length > 60 ? item.defVi.substring(0,60)+'...' : (item.defVi || '')}</text>
+              </svg>
+            `;
+            imgEl.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svgContent);
+          }
+        }
+        tryNextImage();
+      }
+
+      // 2. Audio
+      const audioEl = document.getElementById("fcAudio");
+      if (audioEl) {
+        let audioCandidateIdx = 0;
+        function tryNextAudio() {
+          if (audioCandidateIdx < candidates.length) {
+            const currentCode = candidates[audioCandidateIdx++];
+            audioEl.onerror = () => tryNextAudio();
+            audioEl.src = `media/${currentCode}.mp3`;
+            audioEl.load();
+          } else {
+            audioEl.onerror = null;
+          }
+        }
+        tryNextAudio();
+      }
+
+      // 3. Video
+      const videoEl = document.getElementById("fcVideo");
+      if (videoEl) {
+        let videoCandidateIdx = 0;
+        try { videoEl.pause(); } catch(e){}
+        function tryNextVideo() {
+          if (videoCandidateIdx < candidates.length) {
+            const currentCode = candidates[videoCandidateIdx++];
+            videoEl.onerror = () => tryNextVideo();
+            videoEl.src = `media/${currentCode}.mp4`;
+            videoEl.load();
+          } else {
+            videoEl.onerror = null;
+          }
+        }
+        tryNextVideo();
+      }
+
+      setupScramble(item.word);
+    }
+
+    function navigateCard(direction) {
+      renderFlashcard(currentCardIndex + direction);
+    }
+
+    let currentScrambleTarget = "";
+    function setupScramble(word) {
+      currentScrambleTarget = (word || "").toUpperCase().replace(/[^A-Z0-9]/g, '');
+      const letters = currentScrambleTarget.split('');
+      for (let i = letters.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [letters[i], letters[j]] = [letters[j], letters[i]];
+      }
+
+      const container = document.getElementById("scrambleLettersContainer");
+      if (container) {
+        container.innerHTML = "";
+        letters.forEach(char => {
+          const chip = document.createElement("span");
+          chip.className = "scramble-chip";
+          chip.innerText = char;
+          container.appendChild(chip);
+        });
+      }
+
+      const inp = document.getElementById("scrambleInput");
+      if (inp) inp.value = "";
+      const fb = document.getElementById("scrambleFeedback");
+      if (fb) fb.innerText = "";
+    }
+
+    function checkScramble() {
+      const inp = document.getElementById("scrambleInput");
+      const userVal = inp ? inp.value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '') : "";
+      const fb = document.getElementById("scrambleFeedback");
+      if (userVal === currentScrambleTarget) {
+        SoundFX.playCorrect();
+        if (fb) fb.innerHTML = "<span style='color: var(--success);'>🎉 Hoàn toàn chính xác! Chúc mừng bạn.</span>";
+      } else {
+        SoundFX.playIncorrect();
+        if (fb) fb.innerHTML = "<span style='color: var(--danger);'>❌ Chưa chính xác, hãy quan sát lại!</span>";
+      }
+    }
+
+    /* ==========================================================================
+       6. REVIEW QUIZ
+       ========================================================================== */
+    function initPracticeQuiz(totalQuestions) {
+      const b10 = document.getElementById("btnQuiz10");
+      const b20 = document.getElementById("btnQuiz20");
+      if (b10) b10.classList.toggle("btn-primary", totalQuestions === 10);
+      if (b20) b20.classList.toggle("btn-primary", totalQuestions === 20);
+
+      practiceQuestions = [];
+      practiceAnswers = {};
+      currentPracticeIdx = 0;
+
+      const numScramble = Math.round(totalQuestions * 0.3);
+      const numFill = Math.round(totalQuestions * 0.3);
+      const numMcq = totalQuestions - numScramble - numFill;
+
+      // 1. Scramble (30%)
+      for (let i = 0; i < numScramble; i++) {
+        const item = VOCABULARY_DATA[i % VOCABULARY_DATA.length];
+        practiceQuestions.push({
+          type: "scramble",
+          question: `Sắp xếp các chữ cái để tạo thành thuật ngữ có nghĩa: "${item.defVi}"`,
+          target: item.word.toUpperCase().replace(/[^A-Z0-9]/g, ''),
+          correctDisplay: item.word,
+          hint: `Bắt đầu bằng '${item.word[0]}', IPA: ${item.ipa}`
+        });
+      }
+
+      // 2. Điền khuyết Dropdown 4 lựa chọn (30%)
+      const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      for (let i = 0; i < numFill; i++) {
+        const item = VOCABULARY_DATA[(i + 2) % VOCABULARY_DATA.length];
+        const cleanWord = item.word.toUpperCase();
+        
+        let validIndices = [];
+        for (let idx = 0; idx < cleanWord.length; idx++) {
+          if (cleanWord[idx] >= 'A' && cleanWord[idx] <= 'Z') validIndices.push(idx);
+        }
+        const missingPos = validIndices.length > 0 ? validIndices[Math.floor(Math.random() * validIndices.length)] : 0;
+        const correctChar = cleanWord.charAt(missingPos);
+        const blanked = cleanWord.substring(0, missingPos) + " [ ? ] " + cleanWord.substring(missingPos + 1);
+
+        let distractors = [];
+        while (distractors.length < 3) {
+          const randChar = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
+          if (randChar !== correctChar && !distractors.includes(randChar)) {
+            distractors.push(randChar);
+          }
+        }
+        const dropdownOptions = [correctChar, ...distractors].sort(() => 0.5 - Math.random());
+
+        practiceQuestions.push({
+          type: "fill_dropdown",
+          question: `Chọn 01 ký tự đúng điền vào vị trí [ ? ]: "${blanked}"`,
+          subText: `Ý nghĩa: ${item.defVi}`,
+          target: correctChar,
+          correctDisplay: correctChar,
+          options: dropdownOptions,
+          hint: `Từ gốc gồm ${cleanWord.length} chữ cái. Tiếng Anh: ${item.defEn}`
+        });
+      }
+
+      // 3. Trắc nghiệm MCQ 4 lựa chọn (40%)
+      for (let i = 0; i < numMcq; i++) {
+        const item = VOCABULARY_DATA[(i + 4) % VOCABULARY_DATA.length];
+        const dists = VOCABULARY_DATA.filter(v => v.id !== item.id)
+                                    .sort(() => 0.5 - Math.random())
+                                    .slice(0, 3)
+                                    .map(v => v.word);
+        const opts = [item.word, ...dists].sort(() => 0.5 - Math.random());
+        practiceQuestions.push({
+          type: "mcq",
+          question: `Thuật ngữ sinh học nào mang ý nghĩa: "${item.defVi}"?`,
+          options: opts,
+          answer: opts.indexOf(item.word),
+          correctDisplay: item.word,
+          hint: `Phát âm IPA: ${item.ipa}`
+        });
+      }
+
+      practiceQuestions = practiceQuestions.sort(() => 0.5 - Math.random());
+      const qc = document.getElementById("practiceQuizCard");
+      if (qc) qc.style.display = "block";
+      const rb = document.getElementById("practiceResultBox");
+      if (rb) rb.style.display = "none";
+
+      renderPracticeSlider();
+      renderPracticeCurrentQuestion();
+    }
+
+    function renderPracticeSlider() {
+      const slider = document.getElementById("practiceNavSlider");
+      if (!slider) return;
+      slider.innerHTML = "";
+      practiceQuestions.forEach((q, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `q-step-btn ${idx === currentPracticeIdx ? 'active' : ''} ${practiceAnswers[idx] !== undefined ? 'answered' : ''}`;
+        btn.innerText = idx + 1;
+        btn.onclick = () => {
+          currentPracticeIdx = idx;
+          renderPracticeSlider();
+          renderPracticeCurrentQuestion();
+        };
+        slider.appendChild(btn);
+      });
+    }
+
+    function renderPracticeCurrentQuestion() {
+      const q = practiceQuestions[currentPracticeIdx];
+      if (!q) return;
+
+      const badge = document.getElementById("practiceQuestionTypeBadge");
+      if (badge) badge.innerText = q.type.toUpperCase().replace('_', ' ');
+
+      const title = document.getElementById("practiceQuestionTitle");
+      if (title) title.innerText = `Câu ${currentPracticeIdx + 1}: ${q.question}`;
+      
+      const hintBox = document.getElementById("practiceHintBox");
+      if (hintBox) {
+        hintBox.style.display = "none";
+        hintBox.innerText = "💡 Gợi ý: " + q.hint;
+      }
+
+      const body = document.getElementById("practiceQuestionBody");
+      if (!body) return;
+      body.innerHTML = "";
+
+      if (q.type === "mcq") {
+        q.options.forEach((opt, optIdx) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = `option-btn ${practiceAnswers[currentPracticeIdx] === optIdx ? 'selected' : ''}`;
+          btn.innerHTML = `<span style="display:inline-block; width:22px; height:22px; border-radius:50%; background:#e5e7eb; text-align:center; line-height:22px; font-size:0.75rem;">${String.fromCharCode(65 + optIdx)}</span> ${opt}`;
+          btn.onclick = () => {
+            practiceAnswers[currentPracticeIdx] = optIdx;
+            if (optIdx === q.answer) {
+              SoundFX.playCorrect();
+              btn.classList.add("correct");
+            } else {
+              SoundFX.playIncorrect();
+              btn.classList.add("incorrect");
+            }
+            renderPracticeSlider();
+          };
+          body.appendChild(btn);
+        });
+      } else if (q.type === "fill_dropdown") {
+        const wrap = document.createElement("div");
+        wrap.style.display = "flex";
+        wrap.style.flexDirection = "column";
+        wrap.style.gap = "0.65rem";
+
+        if (q.subText) {
+          const sub = document.createElement("div");
+          sub.style.fontSize = "0.88rem";
+          sub.style.color = "var(--text-muted)";
+          sub.innerText = q.subText;
+          wrap.appendChild(sub);
+        }
+
+        const selectWrap = document.createElement("div");
+        selectWrap.style.display = "flex";
+        selectWrap.style.gap = "0.65rem";
+        selectWrap.style.alignItems = "center";
+
+        const select = document.createElement("select");
+        select.className = "form-control";
+        select.style.maxWidth = "200px";
+        select.style.fontWeight = "700";
+        select.style.fontSize = "0.95rem";
+
+        const defaultOpt = document.createElement("option");
+        defaultOpt.value = "";
+        defaultOpt.innerText = "-- Chọn chữ cái --";
+        select.appendChild(defaultOpt);
+
+        q.options.forEach(optChar => {
+          const opt = document.createElement("option");
+          opt.value = optChar;
+          opt.innerText = `Chữ cái:  ${optChar}`;
+          if (practiceAnswers[currentPracticeIdx] === optChar) opt.selected = true;
+          select.appendChild(opt);
+        });
+
+        const feedbackSpan = document.createElement("div");
+        feedbackSpan.style.fontWeight = "700";
+        feedbackSpan.style.fontSize = "0.9rem";
+
+        select.onchange = (e) => {
+          const val = e.target.value;
+          if (val === "") {
+            delete practiceAnswers[currentPracticeIdx];
+            feedbackSpan.innerText = "";
+          } else {
+            practiceAnswers[currentPracticeIdx] = val;
+            if (val === q.target) {
+              SoundFX.playCorrect();
+              feedbackSpan.innerHTML = "<span style='color: var(--success);'>✅ Chính xác tuyệt đối!</span>";
+            } else {
+              SoundFX.playIncorrect();
+              feedbackSpan.innerHTML = "<span style='color: var(--danger);'>❌ Chưa chính xác, chọn lại!</span>";
+            }
+          }
+          renderPracticeSlider();
+        };
+
+        selectWrap.appendChild(select);
+        wrap.appendChild(selectWrap);
+        wrap.appendChild(feedbackSpan);
+        body.appendChild(wrap);
+      } else {
+        const wrap = document.createElement("div");
+        wrap.style.display = "flex";
+        wrap.style.gap = "0.65rem";
+        wrap.style.alignItems = "center";
+
+        const inp = document.createElement("input");
+        inp.type = "text";
+        inp.className = "form-control";
+        inp.style.maxWidth = "260px";
+        inp.style.fontWeight = "700";
+        inp.style.textTransform = "uppercase";
+        inp.autocomplete = "off";
+        if (practiceAnswers[currentPracticeIdx]) inp.value = practiceAnswers[currentPracticeIdx];
+
+        const chkBtn = document.createElement("button");
+        chkBtn.type = "button";
+        chkBtn.className = "btn btn-primary";
+        chkBtn.innerText = "Kiểm tra";
+        chkBtn.onclick = () => {
+          const val = inp.value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+          practiceAnswers[currentPracticeIdx] = val;
+          if (val === q.target) {
+            SoundFX.playCorrect();
+            alert("✅ Hoàn toàn chính xác!");
+          } else {
+            SoundFX.playIncorrect();
+            alert("❌ Chưa chính xác. Gợi ý: " + q.hint);
+          }
+          renderPracticeSlider();
+        };
+
+        wrap.appendChild(inp);
+        wrap.appendChild(chkBtn);
+        body.appendChild(wrap);
+      }
+    }
+
+    function togglePracticeHint() {
+      const box = document.getElementById("practiceHintBox");
+      if (box) box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+
+    function prevPracticeQuestion() {
+      if (currentPracticeIdx > 0) {
+        currentPracticeIdx--;
+        renderPracticeSlider();
+        renderPracticeCurrentQuestion();
+      }
+    }
+    function nextPracticeQuestion() {
+      if (currentPracticeIdx < practiceQuestions.length - 1) {
+        currentPracticeIdx++;
+        renderPracticeSlider();
+        renderPracticeCurrentQuestion();
+      }
+    }
+
+    function submitPracticeQuiz(forceSubmit) {
+      if (!forceSubmit) {
+        const answeredCount = Object.keys(practiceAnswers).length;
+        const total = practiceQuestions.length;
+        if (answeredCount < total) {
+          const confirmSubmit = confirm(`Bạn đã làm ${answeredCount}/${total} câu. Bạn có chắc chắn muốn nộp bài để xem kết quả không?`);
+          if (!confirmSubmit) return;
+        }
+      }
+
+      let correctCount = 0;
+      let detailsHtml = "";
+
+      practiceQuestions.forEach((q, idx) => {
+        let isCorrect = false;
+        let userAnsText = practiceAnswers[idx] !== undefined ? practiceAnswers[idx] : "(Chưa trả lời)";
+
+        if (q.type === "mcq") {
+          isCorrect = (practiceAnswers[idx] === q.answer);
+          userAnsText = practiceAnswers[idx] !== undefined ? q.options[practiceAnswers[idx]] : "(Chưa trả lời)";
+        } else {
+          isCorrect = (practiceAnswers[idx] === q.target);
+        }
+
+        if (isCorrect) correctCount++;
+
+        detailsHtml += `
+          <div style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+            <strong>Câu ${idx + 1}:</strong> ${isCorrect ? '✅' : '❌'} 
+            <span>Bạn chọn: <em>${userAnsText}</em></span>
+            ${!isCorrect ? `<span style="color:var(--primary); font-weight:700;"> (Đáp án đúng: ${q.correctDisplay})</span>` : ''}
+          </div>
+        `;
+      });
+
+      const total = practiceQuestions.length;
+      const percent = Math.round((correctCount / total) * 100);
+      const scale10 = ((correctCount / total) * 10).toFixed(1);
+
+      const qc = document.getElementById("practiceQuizCard");
+      if (qc) qc.style.display = "none";
+      const rb = document.getElementById("practiceResultBox");
+      if (rb) rb.style.display = "block";
+
+      const rs = document.getElementById("practiceResultScore");
+      if (rs) rs.innerText = `${correctCount} / ${total}`;
+      const rp = document.getElementById("practiceResultPercent");
+      if (rp) rp.innerText = `${percent}%`;
+      const r10 = document.getElementById("practiceResultScale10");
+      if (r10) r10.innerText = `${scale10}/10`;
+      const rd = document.getElementById("practiceResultDetails");
+      if (rd) rd.innerHTML = detailsHtml;
+
+      if (correctCount >= total / 2) {
+        SoundFX.playCorrect();
+      } else {
+        SoundFX.playIncorrect();
+      }
+
+      // ĐỒNG BỘ ĐIỂM LUYỆN TẬP VỀ GOOGLE SHEETS
+      const syncStatus = document.getElementById("practiceSyncStatus");
+      if (syncStatus) syncStatus.innerText = "⏳ Đang kết nối gửi kết quả luyện tập về Google Sheets...";
+
+      const payload = {
+        action: "submitScore",
+        timestamp: new Date().toLocaleString("vi-VN"),
+        examType: "Luyen_Tap",
+        name: currentUser.name || "Thí sinh tự do",
+        class: currentUser.class || "Tự do",
+        room: `Review_Quiz_${total}cau`,
+        score: scale10,
+        correctCount: `${correctCount}/${total}`
+      };
+
+      try {
+        fetch(ARENA_CONFIG.googleSheetUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        })
+        .then(() => {
+          if (syncStatus) syncStatus.innerHTML = "<span style='color: var(--success); font-weight:700;'>✅ Kết quả luyện tập đã được ghi nhận vào Google Sheets!</span>";
+        })
+        .catch(() => {
+          if (syncStatus) syncStatus.innerHTML = "<span style='color: var(--amber);'>⚠️ Điểm đã lưu cục bộ (Không thể gửi đến Google Sheets).</span>";
+        });
+      } catch(e){}
+    }
+
+    /* ==========================================================================
+       7. ARENA SYSTEM (ĐẾM NGƯỢC 3 PHÚT & ĐỒNG BỘ GOOGLE SHEETS)
+       ========================================================================== */
+    function startArenaExam() {
+      const codeInp = document.getElementById("arenaRoomCodeInput");
+      const rawInput = codeInp ? codeInp.value.trim().toUpperCase() : "";
+      const cleanInput = rawInput.replace(/\s+/g, '');
+
+      if (!ARENA_CONFIG.validCodes.includes(cleanInput)) {
+        alert("⚠️ Mã phòng thi không đúng! Vui lòng nhập đúng mã giáo viên cung cấp (cva hoặc tudo).");
+        return;
+      }
+
+      if (!currentUser.name) {
+        alert("⚠️ Vui lòng cập nhật Họ tên trước khi làm bài Đấu trường!");
+        switchScreen("welcome");
+        return;
+      }
+
+      const lb = document.getElementById("arenaLockBox");
+      if (lb) lb.style.display = "none";
+      const eb = document.getElementById("arenaExamBox");
+      if (eb) eb.style.display = "block";
+      const rb = document.getElementById("arenaResultBox");
+      if (rb) rb.style.display = "none";
+
+      const rLabel = document.getElementById("arenaCurrentRoomLabel");
+      if (rLabel) rLabel.innerText = cleanInput;
+      const cLabel = document.getElementById("arenaCandidateLabel");
+      if (cLabel) cLabel.innerText = `Thí sinh: ${currentUser.name} (${currentUser.class})`;
+
+      arenaQuestions = [...ARENA_EXAMS.defaultExam];
+      arenaAnswers = {};
+      currentArenaIdx = 0;
+      arenaRemainingSeconds = ARENA_CONFIG.durationMinutes * 60; // 3 phút = 180 giây
+
+      renderArenaSlider();
+      renderArenaQuestion();
+      startArenaTimer();
+    }
+
+    function startArenaTimer() {
+      clearInterval(arenaTimerInterval);
+      arenaTimerInterval = setInterval(() => {
+        arenaRemainingSeconds--;
+        const m = Math.floor(arenaRemainingSeconds / 60);
+        const s = arenaRemainingSeconds % 60;
+        const timerEl = document.getElementById("arenaTimer");
+        if (timerEl) timerEl.innerText = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+
+        if (arenaRemainingSeconds <= 0) {
+          clearInterval(arenaTimerInterval);
+          alert("⏰ Đã hết 03 phút làm bài! Hệ thống tự động nộp bài.");
+          submitArenaExam(true);
+        }
+      }, 1000);
+    }
+
+    function renderArenaSlider() {
+      const slider = document.getElementById("arenaNavSlider");
+      if (!slider) return;
+      slider.innerHTML = "";
+      arenaQuestions.forEach((q, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `q-step-btn ${idx === currentArenaIdx ? 'active' : ''} ${arenaAnswers[idx] !== undefined ? 'answered' : ''}`;
+        btn.innerText = idx + 1;
+        btn.onclick = () => {
+          currentArenaIdx = idx;
+          renderArenaSlider();
+          renderArenaQuestion();
+        };
+        slider.appendChild(btn);
+      });
+    }
+
+    function renderArenaQuestion() {
+      const q = arenaQuestions[currentArenaIdx];
+      if (!q) return;
+
+      const numL = document.getElementById("arenaQNumberLabel");
+      if (numL) numL.innerText = `Câu ${currentArenaIdx + 1} / ${arenaQuestions.length}`;
+      const typeB = document.getElementById("arenaQuestionTypeBadge");
+      if (typeB) typeB.innerText = q.type.toUpperCase();
+      const title = document.getElementById("arenaQuestionTitle");
+      if (title) title.innerText = q.question;
+
+      const box = document.getElementById("arenaQuestionContent");
+      if (!box) return;
+      box.innerHTML = "";
+
+      if (q.type === "mcq" || q.type === "tf") {
+        q.options.forEach((opt, optIdx) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = `option-btn ${arenaAnswers[currentArenaIdx] === optIdx ? 'selected' : ''}`;
+          btn.innerHTML = `<span style="display:inline-block; width:22px; height:22px; border-radius:50%; background:#e2e8f0; text-align:center; line-height:22px; font-size:0.75rem;">${String.fromCharCode(65 + optIdx)}</span> ${opt}`;
+          btn.onclick = () => {
+            arenaAnswers[currentArenaIdx] = optIdx;
+            renderArenaSlider();
+            renderArenaQuestion();
+          };
+          box.appendChild(btn);
+        });
+      } else if (q.type === "num") {
+        const wrap = document.createElement("div");
+        wrap.style.marginTop = "0.85rem";
+        wrap.innerHTML = `
+          <label style="font-size:0.85rem; font-weight:700; margin-bottom:0.35rem; display:block;">Nhập số nguyên đáp án:</label>
+          <input type="number" id="arenaNumInput" class="form-control" autocomplete="off" style="max-width:220px; font-weight:700; font-size:1.1rem;" value="${arenaAnswers[currentArenaIdx] !== undefined ? arenaAnswers[currentArenaIdx] : ''}">
+        `;
+        box.appendChild(wrap);
+        const inp = document.getElementById("arenaNumInput");
+        if (inp) {
+          inp.oninput = (e) => {
+            const val = e.target.value.trim();
+            if (val !== "") {
+              arenaAnswers[currentArenaIdx] = Number(val);
+            } else {
+              delete arenaAnswers[currentArenaIdx];
+            }
+            renderArenaSlider();
+          };
+        }
+      }
+    }
+
+    function prevArenaQuestion() {
+      if (currentArenaIdx > 0) {
+        currentArenaIdx--;
+        renderArenaSlider();
+        renderArenaQuestion();
+      }
+    }
+    function nextArenaQuestion() {
+      if (currentArenaIdx < arenaQuestions.length - 1) {
+        currentArenaIdx++;
+        renderArenaSlider();
+        renderArenaQuestion();
+      }
+    }
+
+    function submitArenaExam(forceSubmit) {
+      if (!forceSubmit) {
+        const answeredCount = Object.keys(arenaAnswers).length;
+        if (answeredCount < arenaQuestions.length) {
+          const confirmSubmit = confirm(`Bạn mới hoàn thành ${answeredCount}/${arenaQuestions.length} câu hỏi. Bạn có chắc chắn muốn nộp bài?`);
+          if (!confirmSubmit) return;
+        }
+      }
+
+      clearInterval(arenaTimerInterval);
+
+      let correctCount = 0;
+      arenaQuestions.forEach((q, idx) => {
+        if (arenaAnswers[idx] === q.answer) {
+          correctCount++;
+        }
+      });
+
+      const total = arenaQuestions.length;
+      const scale10 = ((correctCount / total) * 10).toFixed(1);
+
+      const eb = document.getElementById("arenaExamBox");
+      if (eb) eb.style.display = "none";
+      const rb = document.getElementById("arenaResultBox");
+      if (rb) rb.style.display = "block";
+
+      const rs = document.getElementById("arenaResultScore");
+      if (rs) rs.innerText = `${correctCount} / ${total}`;
+      const r10 = document.getElementById("arenaResultScale10");
+      if (r10) r10.innerText = scale10;
+
+      if (correctCount >= total / 2) {
+        SoundFX.playCorrect();
+      } else {
+        SoundFX.playIncorrect();
+      }
+
+      const rLabel = document.getElementById("arenaCurrentRoomLabel");
+      const payload = {
+        action: "submitScore",
+        timestamp: new Date().toLocaleString("vi-VN"),
+        examType: "Dau_Truong",
+        name: currentUser.name,
+        class: currentUser.class,
+        room: rLabel ? rLabel.innerText : "TUDO",
+        score: scale10,
+        correctCount: `${correctCount}/${total}`,
+        timeSpent: (ARENA_CONFIG.durationMinutes * 60) - arenaRemainingSeconds
+      };
+
+      const syncStatus = document.getElementById("arenaResultSyncStatus");
+      if (syncStatus) syncStatus.innerText = "⏳ Đang kết nối gửi bảng điểm về Google Sheets...";
+
+      try {
+        fetch(ARENA_CONFIG.googleSheetUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        })
+        .then(() => {
+          if (syncStatus) syncStatus.innerHTML = "<span style='color: var(--success); font-weight:700;'>✅ Bảng điểm đấu trường đã được đồng bộ thành công lên máy chủ giáo viên!</span>";
+        })
+        .catch(() => {
+          if (syncStatus) syncStatus.innerHTML = "<span style='color: var(--amber);'>⚠️ Điểm đã lưu cục bộ (Không thể gửi đến Google Sheets).</span>";
+        });
+      } catch(e){}
+    }
+
+    function restartArena() {
+      const lb = document.getElementById("arenaLockBox");
+      if (lb) lb.style.display = "block";
+      const rb = document.getElementById("arenaResultBox");
+      if (rb) rb.style.display = "none";
+      const eb = document.getElementById("arenaExamBox");
+      if (eb) eb.style.display = "none";
+    }
+
+    /* ==========================================================================
+       8. VIEWS COUNTER & KHỞI TẠO AN TOÀN
+       ========================================================================== */
+    function initViewCounter() {
+      try {
+        let views = parseInt(localStorage.getItem("s12_bio_unit7_views") || "100", 10);
+        views += 1;
+        localStorage.setItem("s12_bio_unit7_views", views);
+        const vc = document.getElementById("viewCountText");
+        if (vc) vc.innerText = views.toLocaleString("vi-VN");
+
+        fetch(`${ARENA_CONFIG.googleSheetUrl}?action=view&count=${views}`, { mode: 'no-cors' }).catch(()=>{});
+      } catch (e) {}
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      initUser();
+      initViewCounter();
+
+      const startBtn = document.getElementById("btnStartApp");
+      if (startBtn) {
+        startBtn.addEventListener("click", saveUserInfoAndStart);
+      }
+    });
+  </script>
+</body>
+</html>
